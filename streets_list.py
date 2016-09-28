@@ -16,36 +16,24 @@ import json
 import math
 import tabulate
 
-#######################
-# PARAMETERS
-# #####################
+import  configparser
+Config = configparser.ConfigParser()
+Config.read("config.poppy")
 
-# This code assumes that you have a rectangular map, with a Lambert 72 coordinates system
-# and a grid superimposed on it
-# The top left coordinate is (x0, y0)
-# A square of the grid has a size in meters of (dx, dy)
-# There are nx (resp ny) squares along the x (resp y) coordinates, labeled A, B, C ... (resp 01, 02, 03, ...)
 
-x0  = 115000 # coord MIN (gauche de la carte) - doivent être les coordonnées réelles (la carte n'est pas exactement ce qui a été demandé)
-y0  = 104108 # coord MAX (haut de la carte)   - doivent être les coordonnées réelles (la carte n'est pas exactement ce qui a été demandé)
-dx  = 1250   # width in meters of a main grid square 
-dy  = 1250   #
-nx  = 26     # number of grid squares in x
-ny  = 33     # number of grid squares in y
+x0_real         = int(Config.get('config', 'x0_real'))
+y0_real         = int(Config.get('config', 'y0_real'))
+x1_real         = int(Config.get('config', 'x1_real'))
+y1_real         = int(Config.get('config', 'y1_real'))
+scr             = Config.get('config', 'scr')
+delta1          = int(Config.get('config', 'delta1'))
+nx              = int(Config.get('config', 'nx'))
+ny              = int(Config.get('config', 'ny'))
+a               = Config.get('config', 'a').split(',')
+b               = Config.get('config', 'b').split(',')
 
-#main grid labels (X)
-a   = ['A', 'B', 'B', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-
-#subgrid (4 subsquares)
-b   = ['a', 'b', 'c', 'd']
-
-#     0 1            0 1
-#0    a b         0  0 1
-#1    c d         1  2 3
-
-x1 = x0 + nx * dx
-y1 = y0 + ny * dy
-
+x1_delta = x0_real + nx * delta1
+y1_delta = y0_real + ny * delta1
 
 # 1. gets the list of the municipalities in the rectangle
 # -------------------------------------------------------
@@ -66,7 +54,7 @@ def has_overlap(x0, x1, xmin, xmax):
         return False
     
 for commune in communes:
-    if has_overlap(x0, x1, commune['xMin'], commune['xMax']) | has_overlap(y0, y1, commune['yMin'], commune['yMax']):
+    if has_overlap(x0_real, x1_delta, commune['xMin'], commune['xMax']) | has_overlap(y0_real, y1_delta, commune['yMin'], commune['yMax']):
         names.append(commune['nom'])
 
 print(names)
@@ -90,11 +78,11 @@ for name in names:
         xMin = street['xMin'];  xMax = street['xMax']
         yMin = street['yMin'];  yMax = street['yMax']
 
-        eta = (xMin-x0)/dx; gridX0 = math.floor(eta); sX0 = math.floor((eta-math.floor(eta))*2);
-        eta = (y0-yMin)/dy; gridY0 = math.floor(eta); sY0 = math.floor((eta-math.floor(eta))*2);
+        eta = (xMin-x0_real)/delta1; gridX0 = math.floor(eta); sX0 = math.floor((eta-math.floor(eta))*2);
+        eta = (y0_real-yMin)/delta1; gridY0 = math.floor(eta); sY0 = math.floor((eta-math.floor(eta))*2);
     
-        eta = (xMax-x0)/dx; gridX1 = math.floor(eta); sX1 = math.floor((eta-math.floor(eta))*2);
-        eta = (y0-yMax)/dy; gridY1 = math.floor(eta); sY1 = math.floor((eta-math.floor(eta))*2);
+        eta = (xMax-x0_real)/delta1; gridX1 = math.floor(eta); sX1 = math.floor((eta-math.floor(eta))*2);
+        eta = (y0_real-yMax)/delta1; gridY1 = math.floor(eta); sY1 = math.floor((eta-math.floor(eta))*2);
 
         # streets that are out of the rectangle even though if a part of the municipality is in the rectangle
         if gridX0 >= len(a):

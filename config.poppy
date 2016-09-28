@@ -1,0 +1,59 @@
+[config]
+im_path        = convert.exe
+omniscale_api  = my-omniscale-key
+
+# size in mm of the printed result
+size_real_x_mm = 2000
+size_real_y_mm = 2000
+
+#size in pixeld of the margin for the letters
+dx_frame       = 200  
+dy_frame       = 200  
+
+# the more dpi, the less details, but the more precise the map looks
+dpi            = 100  
+
+#png or jpeg
+fmt            = png
+
+# requested bounding box
+x0             = 195000	
+x1             = 227000 
+y0             = 147500
+y1             = 115500
+                                                
+# real bounding box
+x0_real        = 195000 
+x1_real        = 227000 
+y0_real        = 147500
+y1_real        = 115500
+
+scr            = EPSG:31370
+
+# main grid interval (in meters)
+delta1         = 1230           
+
+# True to add coordinates in the squares
+coord_sub      = False          
+
+# This code assumes that you have a rectangular map, with a Lambert 72 coordinates system
+# and a grid superimposed on it
+# The top left coordinate is (x0, y0)
+# A square of the grid has a size in meters of (delta1, delta1)
+# There are nx (resp ny) squares along the x (resp y) coordinates, labeled A, B, C ... (resp 01, 02, 03, ...)
+
+#number of grid squares in x
+nx     = 26     
+
+# number of grid squares in y
+ny     = 26     
+
+#main grid labels (X)
+a   = A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z
+
+#subgrid (4 subsquares)
+b   = a,b,c,d
+
+#     0 1            0 1
+#0    a b         0  0 1
+#1    c d         1  2 3
