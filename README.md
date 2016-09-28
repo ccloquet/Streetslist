@@ -1,6 +1,7 @@
 # Creates a street list using the webservices of the Walloon Region
 
-Build a street list using the ICAR webservice from the Walloon Region 
+wmsmap.py: Build a large scale map + grid using the Omniscale WMS
+streets_list.py: Build a street list using the ICAR webservice from the Walloon Region 
                                                                        
 Author:  Christophe Cloquet, Poppy, Brussels (2016)                   
          christophe@my-poppy.eu                                       
