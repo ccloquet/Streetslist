@@ -1,34 +1,55 @@
 [config]
-im_path        = convert.exe
-omniscale_api  = my-omniscale-key
+
+# path to ImageMagick (optionnal)
+im_path        = C:\Progra~1\ImageMagick-7.0.2-Q16\convert.exe
+
+#Omniscale api key
+omniscale_api  = omniscale-api
 
 # size in mm of the printed result
 size_real_x_mm = 2000
 size_real_y_mm = 2000
 
-#size in pixeld of the margin for the letters
-dx_frame       = 200  
-dy_frame       = 200  
+#size in mm of the left & top margins (for the letters)
+border_frame_x_mm = 50
+border_frame_y_mm = 50
 
 # the more dpi, the less details, but the more precise the map looks
-dpi            = 100  
+# Omniscale : up to 300 dpi, but depends on your computer's memory
+dpi            = 210
 
-#png or jpeg
+# number of subimages, for the WMS request
+nsub = 2
+
+# if nsub > 1 (more than one sub image), then loads overlaps to avoid discontinuities (eg: bcz attribution text & bcz streetnames are optimized at the borders)
+enforce_overlap   = True
+
+# half of the overlap width (inches)
+border_half_width = 5
+
+# add a grid & subgrid with squares (A5)
+add_grid          = True
+
+# add a cartouche (cartouche.png)
+add_cartouche     = True
+
+# png or jpeg. Best result : png
 fmt            = png
 
-# requested bounding box
-x0             = 195000	
-x1             = 227000 
-y0             = 147500
-y1             = 115500
-                                                
-# real bounding box
-x0_real        = 195000 
-x1_real        = 227000 
-y0_real        = 147500
-y1_real        = 115500
-
+#coordinates reference system
 scr            = EPSG:31370
+
+# requested bounding box in the specified SCR
+x0             = 180000	
+x1             = 212000 
+y0             = 132500
+y1             = 100500
+                                               
+# real bounding box
+x0_real        = 180000 
+x1_real        = 212000 
+y0_real        = 132500
+y1_real        = 100500
 
 # main grid interval (in meters)
 delta1         = 1230           
@@ -42,10 +63,8 @@ coord_sub      = False
 # A square of the grid has a size in meters of (delta1, delta1)
 # There are nx (resp ny) squares along the x (resp y) coordinates, labeled A, B, C ... (resp 01, 02, 03, ...)
 
-#number of grid squares in x
+#number of grid squares in x & y
 nx     = 26     
-
-# number of grid squares in y
 ny     = 26     
 
 #main grid labels (X)
@@ -57,3 +76,29 @@ b   = a,b,c,d
 #     0 1            0 1
 #0    a b         0  0 1
 #1    c d         1  2 3
+
+fontpath          = FreeSans.ttf
+
+# pour un secteur de 32x32 km,
+# l'idéal, pour afficher les rues, est une carte murale de 2000 x 2000 mm, en 210 dpi en png
+# jpeg : not clean enough for printing
+
+# en sortie :
+
+# pour créer PDF
+#   OPTION 1. using ImageMagick (notamment pour tirer un pdf en A0 à partir d'un png en A0)
+#              
+#             C:\Program Files\ImageMagick-7.0.2-Q16\convert.exe mapWMS-160917-1159.png mapWMS-160917-1159_IM.pdf
+#   OPTION B. à partir de paint > primo pdf + dimensions "personnalisée", puis preflight
+
+# pour créer un EPS : à partir de PIL
+# outputFileName = "map%s-%02d%02d%02d-%02d%02d.eps" % (dpi, now.year % 100, now.month, now.day, now.hour, now.minute)
+# newImage.save(outputFileName)
+# résolution pas géniale
+
+# bad alternatives
+# Adobe Acrobat : bad resolution, PDFCreator : bad size
+# exporteurs intégrés de PIL (vers PDF, ou EPS puis Acrobat) : compriment en jpeg
+# zoomlevel dans Gimp, correspondant à A0 : 33 %
+
+
