@@ -1,10 +1,16 @@
-# *****************************************************************************************
-# create a high definition large printable map (eg : 2000 x 2000, 300 dpi) with a grid    *
-# based on WMS requests to Omniscale                                                      *
-# *****************************************************************************************
-#
-# Author:  C. Cloquet, Poppy, 2016
-# Licence: MIT
+ ####################################################################### 
+#                                                                       #
+# Create a high definition large printable map                          #
+# (eg : 2000 x 2000, 300 dpi) with a grid                               #
+# based on WMS requests to Omniscale                                    #
+#                                                                       #
+# Author:  Christophe Cloquet, Poppy, Brussels (2016)                   #
+#          christophe@my-poppy.eu                                       #
+#          www.my-poppy.eu                                              #
+#                                                                       #
+# Licence: MIT                                                          #
+#                                                                       #
+ ####################################################################### 
 
 import  dateutil
 from    owslib.wms import WebMapService
@@ -44,7 +50,10 @@ add_grid                = Config.get('config', 'add_grid');
 add_cartouche           = Config.get('config', 'add_cartouche');
 fontpath                = Config.get('config', 'fontpath'); 
 
-if coord_sub == 'False': coord_sub = False
+if coord_sub == 'False':
+        coord_sub = False
+else:
+        coord_sub = True
 if enforce_overlap == 'False':
         enforce_overlap = False
 else:
@@ -88,7 +97,7 @@ print('1. get the image', dpi, sx_frame, sy_frame)
 
 for i in range (0, nsub):
         for j in range (0, nsub):
-                print(i, j, x0+i*deltax, y1+j*deltay, x0+(i+1)*deltax, y1+(j+1)*deltay)
+                print('   ', i, j, x0+i*deltax, y1+j*deltay, x0+(i+1)*deltax, y1+(j+1)*deltay)
                 out_fname    = 'test' + str(dpi) + '_' + str(i) + str(j) + '.' + fmt
                 img          = wms.getmap(   layers=['osm'],styles=None,srs=scr,bbox=(x0+i*deltax, y1+j*deltay, x0+(i+1)*deltax, y1+(j+1)*deltay),size=(sx_request, sy_request),format='image/'+fmt,transparent=True);out = open(out_fname, 'wb'); out.write(img.read()); out.close()
 
@@ -98,7 +107,7 @@ if (nsub > 1) & (enforce_overlap):
         print('2. get the overlap images')
         for i in range (1, nsub):
                 for j in range (0, nsub):
-                        print(i, j, x0+i*deltax, y1+j*deltay, x0+(i+1)*deltax, y1+(j+1)*deltay)
+                        print('   ', i, j, x0+i*deltax, y1+j*deltay, x0+(i+1)*deltax, y1+(j+1)*deltay)
                         i_prime      = i-.5
                         out_fname    = 'test' + str(dpi) + '_joinx_' + str(i) + str(j) + '.' + fmt
                         img          = wms.getmap(   layers=['osm'],styles=None,srs=scr,bbox=(x0+i_prime*deltax, y1+j*deltay, x0+(i_prime+1)*deltax, y1+(j+1)*deltay),size=(sx_request, sy_request),format='image/'+fmt,transparent=True);out = open(out_fname, 'wb');
@@ -107,7 +116,7 @@ if (nsub > 1) & (enforce_overlap):
                         
         for i in range (0, nsub):
                 for j in range (1, nsub):
-                        print(i, j, x0+i*deltax, y1+j*deltay, x0+(i+1)*deltax, y1+(j+1)*deltay)
+                        print('   ', i, j, x0+i*deltax, y1+j*deltay, x0+(i+1)*deltax, y1+(j+1)*deltay)
                         j_prime = j-.5
                         out_fname    = 'test' + str(dpi) + '_joiny_' + str(i) + str(j) + '.' + fmt
                         img          = wms.getmap(   layers=['osm'],styles=None,srs=scr,bbox=(x0+i*deltax, y1+j_prime*deltay, x0+(i+1)*deltax, y1+(j_prime+1)*deltay),size=(sx_request, sy_request),format='image/'+fmt,transparent=True);out = open(out_fname, 'wb');
@@ -189,7 +198,7 @@ if add_grid:
         if coord_sub == True:
                 for m in range (0, nx):
                         for n in range (0, ny+1):
-                                draw.text((m*sx/dx*delta1+.1*etax,n*sy/dy*delta1+.1*etay), a[m]+' ' + str(n), fill='#000000', font=fnt2)        
+                                draw.text((dx_frame+m*sx/dx*delta1+.1*etax,dy_frame+n*sy/dy*delta1+.1*etay), a[m]+' ' + str(n+1), fill='#000000', font=fnt2)        
         del draw
 
 # add the cartouche
