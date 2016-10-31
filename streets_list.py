@@ -115,8 +115,8 @@ for name in names:
         # extract the relevant part of the name, to sort
         na = street['nom'].title().replace(' De ', ' de ').replace(" D' ", " d'").replace(' Du ',' du ').replace(' Des ', ' des ').replace(' La ', ' la ').replace(' Aux ', ' aux ')
         nb = na
-        for pre in ['Allée', 'Chemin', 'Rue', 'Avenue', 'Chaussée', 'Carrefour', 'Cour', 'Cité', 'Camp', 'Espace', 'Tienne', 'Tour', 'Boulevard', 'Route', 'Ruelle', 'Place', 'Sentier', 'Voie', 'Thier', 'Pré', 'Plateau', 'Fond', 'Clos', 'Tige', 'Quai', 'Porte', 'Bois', 'Impasse', 'Drève', 'Fond', 'Voisinage', 'Venelle']:
-            nb = nb.replace(pre + ' de la ', '')'Square', 
+        for pre in ['Allée', 'Chemin', 'Rue', 'Avenue', 'Chaussée', 'Carrefour', 'Cour', 'Cité', 'Camp', 'Espace', 'Tienne', 'Tour', 'Boulevard', 'Route', 'Ruelle', 'Place', 'Sentier', 'Square', 'Voie', 'Thier', 'Pré', 'Plateau', 'Fond', 'Clos', 'Tige', 'Quai', 'Porte', 'Bois', 'Impasse', 'Drève', 'Fond', 'Voisinage', 'Venelle']:
+            nb = nb.replace(pre + ' de la ', '') 
             nb = nb.replace(pre + " de l'", '')
             nb = nb.replace(pre + ' de ', '').replace(pre + ' des ', '').replace(pre + ' aux ', '').replace(pre + ' du ', '').replace(pre + ' aux ', '').replace(pre + " d' ", '')
             nb = nb.replace(pre + ' ', '')
