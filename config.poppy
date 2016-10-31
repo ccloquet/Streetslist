@@ -4,7 +4,7 @@
 im_path        = C:\Progra~1\ImageMagick-7.0.2-Q16\convert.exe
 
 #Omniscale api key
-omniscale_api  = omniscale-api
+omniscale_api  = APIKEY
 
 # size in mm of the printed result
 size_real_x_mm = 2000
@@ -14,9 +14,13 @@ size_real_y_mm = 2000
 border_frame_x_mm = 50
 border_frame_y_mm = 50
 
+#size in mm of the white space around the whole map
+white_border_x_mm = 60
+white_border_y_mm = 60
+
 # the more dpi, the less details, but the more precise the map looks
 # Omniscale : up to 300 dpi, but depends on your computer's memory
-dpi            = 210
+dpi            = 220
 
 # number of subimages, for the WMS request
 nsub = 2
@@ -51,11 +55,12 @@ x1_real        = 212000
 y0_real        = 132500
 y1_real        = 100500
 
+
 # main grid interval (in meters)
 delta1         = 1230           
 
 # True to add coordinates in the squares
-coord_sub      = False          
+coord_sub      = True          
 
 # This code assumes that you have a rectangular map, with a Lambert 72 coordinates system
 # and a grid superimposed on it
