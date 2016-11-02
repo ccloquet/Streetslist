@@ -6,7 +6,11 @@
 #          christophe@my-poppy.eu                                       #
 #          www.my-poppy.eu                                              #
 #                                                                       #
-# Licence: MIT                                                          #
+# Licence: MIT, sans garantie d'aucune sorte                            #
+#                                                                       #
+# Note: le code génère une liste en isolant le nom de la rue.           #
+# La liste générée doit cependant être passée en revue pour retirer     #
+# également les prénoms, lorsque c'est nécessaire.                      #
 #                                                                       #
  ####################################################################### 
 
@@ -115,7 +119,7 @@ for name in names:
         # extract the relevant part of the name, to sort
         na = street['nom'].title().replace(' De ', ' de ').replace(" D' ", " d'").replace(' Du ',' du ').replace(' Des ', ' des ').replace(' La ', ' la ').replace(' Aux ', ' aux ')
         nb = na
-        for pre in ['Allée', 'Chemin', 'Rue', 'Avenue', 'Chaussée', 'Carrefour', 'Cour', 'Cité', 'Camp', 'Espace', 'Tienne', 'Tour', 'Boulevard', 'Route', 'Ruelle', 'Place', 'Sentier', 'Square', 'Voie', 'Thier', 'Pré', 'Plateau', 'Fond', 'Clos', 'Tige', 'Quai', 'Porte', 'Bois', 'Impasse', 'Drève', 'Fond', 'Voisinage', 'Venelle']:
+        for pre in ['Grand Route', 'Allée', 'Chemin', 'Rue', 'Avenue', 'Chaussée', 'Camp', 'Carrefour', 'Cour', 'Lotissement', 'Cité', 'Parvis', 'Vallée', 'Parc', 'Camp', 'Espace', 'Tienne', 'Tier', 'Tour', 'Boulevard', 'Quartier', 'Trou', 'Rond-Point', 'Plaine', 'Rampe', 'Passage', 'Route', 'Havée', 'Ruelle', 'Place', 'Sentier', 'Square', 'Voie', 'Thier', 'Pré', 'Plateau', 'Fond', 'Clos', 'Tige', 'Quai', 'Porte', 'Bois', 'Impasse', 'Drève', 'Fond', 'Voisinage', 'Venelle']:
             nb = nb.replace(pre + ' de la ', '') 
             nb = nb.replace(pre + " de l'", '')
             nb = nb.replace(pre + ' de ', '').replace(pre + ' des ', '').replace(pre + ' aux ', '').replace(pre + ' du ', '').replace(pre + ' aux ', '').replace(pre + " d' ", '')
@@ -130,6 +134,6 @@ for name in names:
         print('-------------------------')
         print(tabulate.tabulate(tab))
 
-#with open("streets.csv", "w") as f:
-#    writer = csv.writer(f)
-#    writer.writerows(gentab)
+with open("streets.csv", "w") as f:
+    writer = csv.writer(f)
+    writer.writerows(gentab)
