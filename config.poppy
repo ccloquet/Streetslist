@@ -11,12 +11,16 @@ size_real_x_mm = 2000
 size_real_y_mm = 2000
 
 #size in mm of the left & top margins (for the letters)
-border_frame_x_mm = 50
-border_frame_y_mm = 50
+border_frame_x_mm = 70
+border_frame_y_mm = 70
 
 #size in mm of the white space around the whole map
-white_border_x_mm = 60
-white_border_y_mm = 60
+white_border_x_mm = 0
+white_border_y_mm = 0
+
+#margin before the characters in mm, within the border_frame
+margin_x_charac_mm = 20 
+margin_y_charac_mm = 20 
 
 # the more dpi, the less details, but the more precise the map looks
 # Omniscale : up to 300 dpi, but depends on your computer's memory
@@ -34,11 +38,18 @@ border_half_width = 5
 # add a grid & subgrid with squares (A5)
 add_grid          = True
 
+# True to add coordinates in the squares
+coord_sub      = True       
+
 # add a cartouche (cartouche.png)
 add_cartouche     = True
 
 # png or jpeg. Best result : png
 fmt            = png
+
+# split the resulting map in parts along the width (w) and height (h)
+npartsw                 = 3
+npartsh                 = 2
 
 #coordinates reference system
 scr            = EPSG:31370
@@ -55,12 +66,8 @@ x1_real        = 212000
 y0_real        = 132500
 y1_real        = 100500
 
-
 # main grid interval (in meters)
 delta1         = 1230           
-
-# True to add coordinates in the squares
-coord_sub      = True          
 
 # This code assumes that you have a rectangular map, with a Lambert 72 coordinates system
 # and a grid superimposed on it
