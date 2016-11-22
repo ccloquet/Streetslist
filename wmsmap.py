@@ -119,7 +119,7 @@ deltay          = (y0-y1)/nsub
 
 # (comment steps 1 and 2 (up to ********************* ) to use an already downloaded map)
 
-get the image, possibly by parts
+#get the image, possibly by parts
 
 print('1. getting the images', dpi, sx_frame, sy_frame)
 
